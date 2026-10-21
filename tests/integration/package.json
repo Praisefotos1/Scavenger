@@ -2,6 +2,7 @@
   "name": "scavenger-integration-tests",
   "version": "1.0.0",
   "description": "Integration tests for Scavenger platform",
+  "private": true,
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
