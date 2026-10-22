@@ -26,12 +26,18 @@ vi.mock('@/lib/cacheKeys', () => ({
   },
 }))
 
+// ── Centralised ScavengerClient mock (#1546) ──────────────────────────────────
+// ScavengerClient speaks Soroban RPC (not REST HTTP) so MSW cannot intercept
+// its requests.  We use the shared mock factory so the mock shape is defined
+// in one place across all test files.
+import { createMockClient } from '@/test-utils/mockScavengerClient'
+
 const mockGetMetrics = vi.fn()
 
 vi.mock('@/api/client', () => ({
-  ScavengerClient: vi.fn().mockImplementation(() => ({
-    getMetrics: mockGetMetrics,
-  })),
+  ScavengerClient: vi.fn().mockImplementation(() =>
+    createMockClient({ getMetrics: mockGetMetrics })
+  ),
 }))
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

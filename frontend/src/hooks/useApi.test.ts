@@ -23,14 +23,19 @@ vi.mock('@/lib/stellar', () => ({
   networkConfig: { networkPassphrase: 'Test SDF Network ; September 2015' },
 }))
 
+// ── Centralised ScavengerClient mock (#1546) ──────────────────────────────────
+// ScavengerClient speaks Soroban RPC (not REST) so MSW cannot intercept its
+// requests.  Instead we use a shared mock factory defined in test-utils so
+// every test file that needs a ScavengerClient mock gets the same shape.
+import { createMockClient } from '@/test-utils/mockScavengerClient'
+
 const mockGetParticipant = vi.fn()
 const mockSubmitMaterial = vi.fn()
 
 vi.mock('@/api/client', () => ({
-  ScavengerClient: vi.fn().mockImplementation(() => ({
-    getParticipant: mockGetParticipant,
-    submitMaterial: mockSubmitMaterial,
-  })),
+  ScavengerClient: vi.fn().mockImplementation(() =>
+    createMockClient({ getParticipant: mockGetParticipant, submitMaterial: mockSubmitMaterial })
+  ),
 }))
 
 import { ScavengerClient } from '@/api/client'
