@@ -11,10 +11,6 @@ const mockConfig = {
   network: 'TESTNET' as const,
 }
 
-const mockGetStats = vi.fn()
-const mockGetMetrics = vi.fn()
-const mockGetMaterial = vi.fn()
-
 vi.mock('@/context/WalletContext', () => ({
   useWallet: () => mockWallet,
 }))
@@ -29,12 +25,21 @@ vi.mock('@/lib/stellar', () => ({
   },
 }))
 
+// ── Centralised ScavengerClient mock (#1546) ──────────────────────────────────
+import { createMockClient } from '@/test-utils/mockScavengerClient'
+
+const mockGetStats = vi.fn()
+const mockGetMetrics = vi.fn()
+const mockGetMaterial = vi.fn()
+
 vi.mock('@/api/client', () => ({
-  ScavengerClient: vi.fn().mockImplementation(() => ({
-    getStats: mockGetStats,
-    getMetrics: mockGetMetrics,
-    getMaterial: mockGetMaterial,
-  })),
+  ScavengerClient: vi.fn().mockImplementation(() =>
+    createMockClient({
+      getStats: mockGetStats,
+      getMetrics: mockGetMetrics,
+      getMaterial: mockGetMaterial,
+    })
+  ),
 }))
 
 // ── Tests ─────────────────────────────────────────────────────────────────────
@@ -42,6 +47,7 @@ vi.mock('@/api/client', () => ({
 describe('useCollectorDashboard', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    mockWallet.address = 'G1234567890ABCDEF'
   })
 
   it('should start with loading state', () => {
