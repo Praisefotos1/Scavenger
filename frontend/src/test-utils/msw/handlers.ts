@@ -5,7 +5,18 @@
  * Scavngr frontend. The ApiClient (src/api/httpClient.ts) makes REST calls
  * to these endpoints; MSW intercepts them during tests.
  *
- * To add a handler:
+ * ## Two-layer mocking strategy (#1546)
+ *
+ * | Layer | Transport | Mock mechanism |
+ * |-------|-----------|----------------|
+ * | Backend REST API (`/api/*`) | HTTP fetch | MSW handlers here |
+ * | Soroban contract RPC (ScavengerClient) | Soroban JSON-RPC over XDR | vi.mock('@/api/client') using `createMockClient()` from `src/test-utils/mockScavengerClient.ts` |
+ *
+ * MSW cannot intercept Soroban RPC calls because they carry binary XDR and
+ * require simulation/polling semantics that go beyond standard HTTP.  For
+ * ScavengerClient-based tests use the centralized factory instead.
+ *
+ * To add a REST handler:
  *   1. Inspect the backend endpoint response shape
  *   2. Add an http.get/post/put/patch/delete handler below
  *   3. Use realistic fixture data

@@ -26,12 +26,15 @@ vi.mock('@/lib/cacheKeys', () => ({
   },
 }))
 
+// ── Centralised ScavengerClient mock (#1546) ──────────────────────────────────
+import { createMockClient } from '@/test-utils/mockScavengerClient'
+
 const mockGetStats = vi.fn()
 
 vi.mock('@/api/client', () => ({
-  ScavengerClient: vi.fn().mockImplementation(() => ({
-    getStats: mockGetStats,
-  })),
+  ScavengerClient: vi.fn().mockImplementation(() =>
+    createMockClient({ getStats: mockGetStats })
+  ),
 }))
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
