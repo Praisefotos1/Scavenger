@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogClose,
+  DialogClose
 } from './Dialog'
 
 expect.extend(toHaveNoViolations)
@@ -149,7 +149,7 @@ describe('Dialog Components', () => {
       expect(title).toBeInTheDocument()
     })
 
-    it('accepts custom className', () => {
+    it('DialogTitle accepts custom className', () => {
       const { container } = render(
         <Dialog open={true}>
           <DialogContent>
@@ -189,7 +189,7 @@ describe('Dialog Components', () => {
       expect(description).toHaveClass('text-sm', 'text-muted-foreground')
     })
 
-    it('accepts custom className', () => {
+    it('DialogDescription accepts custom className', () => {
       const { container } = render(
         <Dialog open={true}>
           <DialogContent>

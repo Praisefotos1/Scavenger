@@ -1,14 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from './Card'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card'
 
 expect.extend(toHaveNoViolations)
 
@@ -73,13 +66,11 @@ describe('Card Components', () => {
         </Card>
       )
       const elements = container.querySelectorAll('div')
-      const header = Array.from(elements).find((el) =>
-        el.textContent?.includes('Content')
-      )
+      const header = Array.from(elements).find((el) => el.textContent?.includes('Content'))
       expect(header).toHaveClass('p-4')
     })
 
-    it('accepts custom className', () => {
+    it('CardHeader accepts custom className', () => {
       const { container } = render(
         <Card>
           <CardHeader className="custom-header">Header</CardHeader>
@@ -127,7 +118,7 @@ describe('Card Components', () => {
       expect(title).toHaveClass('text-lg', 'font-semibold')
     })
 
-    it('accepts custom className', () => {
+    it('CardTitle accepts custom className', () => {
       render(
         <Card>
           <CardHeader>
@@ -177,7 +168,7 @@ describe('Card Components', () => {
       expect(description).toHaveClass('text-sm', 'text-muted-foreground')
     })
 
-    it('accepts custom className', () => {
+    it('CardDescription accepts custom className', () => {
       const { container } = render(
         <Card>
           <CardHeader>
@@ -210,7 +201,7 @@ describe('Card Components', () => {
       expect(elements.length).toBeGreaterThan(0)
     })
 
-    it('accepts custom className', () => {
+    it('CardContent accepts custom className', () => {
       const { container } = render(
         <Card>
           <CardContent className="custom-content">Content</CardContent>
@@ -255,7 +246,7 @@ describe('Card Components', () => {
       expect(elements.length).toBeGreaterThan(0)
     })
 
-    it('accepts custom className', () => {
+    it('CardFooter accepts custom className', () => {
       const { container } = render(
         <Card>
           <CardFooter className="custom-footer">Footer</CardFooter>

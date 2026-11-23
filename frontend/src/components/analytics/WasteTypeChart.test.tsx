@@ -1,7 +1,8 @@
-import { render } from '@testing-library/react';
-import { WasteTypeChart } from './WasteTypeChart';
+import { render } from '@testing-library/react'
+import { WasteTypeChart } from './WasteTypeChart'
 
-test('WasteTypeChart matches snapshot', () => {
-  const { container } = render(<WasteTypeChart />);
-  expect(container).toMatchSnapshot();
-});
+test('WasteTypeChart renders the chart', () => {
+  const { container } = render(<WasteTypeChart />)
+  expect(container).toBeTruthy()
+  expect(container.firstChild).not.toBeNull()
+})

@@ -4,7 +4,7 @@ import {
   StatCardSkeleton,
   WasteCardSkeleton,
   IncentiveCardSkeleton,
-  PageSkeleton,
+  PageSkeleton
 } from './Skeletons'
 
 describe('StatCardSkeleton', () => {
@@ -86,7 +86,7 @@ describe('WasteCardSkeleton', () => {
 })
 
 describe('IncentiveCardSkeleton', () => {
-  it('renders a table row skeleton', () => {
+  it('IncentiveCardSkeleton renders an incentive table row', () => {
     const { container } = render(
       <table>
         <tbody>
@@ -110,7 +110,7 @@ describe('IncentiveCardSkeleton', () => {
     expect(cells.length).toBe(4)
   })
 
-  it('contains animated skeleton elements', () => {
+  it('IncentiveCardSkeleton contains animated skeleton elements', () => {
     const { container } = render(
       <table>
         <tbody>
@@ -122,7 +122,7 @@ describe('IncentiveCardSkeleton', () => {
     expect(skeletons.length).toBeGreaterThanOrEqual(4)
   })
 
-  it('includes rounded-full for status badge', () => {
+  it('IncentiveCardSkeleton includes a rounded-full badge', () => {
     const { container } = render(
       <table>
         <tbody>
